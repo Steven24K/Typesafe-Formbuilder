@@ -1,12 +1,13 @@
 import React from 'react'
 import '../static/css/site.css'
-import FormPicker from './components/FormPicker'
+import FormPicker from '../lib/FormPicker'
 import { FormBuilder } from '../lib/FormBuilder'
 import { Func } from '../lib/Func'
 import { DropDownOptions } from '../lib/DropdownOptions'
 import { Pair } from '../lib/Pair'
 import JSONPretty from 'react-json-pretty'
 import { Query } from '../lib/LazyFormBuilder'
+import FormMaster from '../lib/FormPicker'
 
 interface Product {
     productName: string
@@ -64,37 +65,79 @@ export default class App extends React.Component<AppProps, AppState> {
 
     render() {
         return <div className='App' style={{ backgroundColor: this.state.customer.favoriteColor }}>
-            <h1>My automatic form</h1>
 
-            <FormPicker id_prefix='my-form'
-                defaultData={[this.state.customer]}
-                fields={FormBuilder.Entity(this.state.customer,
-                    Func(q => q.Select('FirstName', 'LastName', 'birthDay', 'gender', 'terms')
-                        .Select('favoriteColor')
-                        .Select('lists', 'todo')
-                        .Children('products', Func(q => q.Select('productName')))
-                        .AssignAny('gender', new DropDownOptions('male', [Pair('M', 'male'), Pair('V', 'female')]))
-                    )).getFields()}
-                onChange={(key, newValue, index) => {
-                    console.log(`Edited ${key}:${index} to ${newValue}`)
-                    this.setState({ ...this.state, customer: { ...this.state.customer, [key]: newValue } })
-                }}
-            />
+            <div className='row'>
 
-            <JSONPretty data={JSON.stringify(this.state.customer)} />
+                <div className='col-4'>
 
-            <h1>Immutuable form data</h1>
-            <p>The state never changes</p>
-            <FormPicker id_prefix='my-form'
-                defaultData={FormBuilder.Entity(this.state.immutuableCustomer, this.state.formQuery).data}
-                fields={FormBuilder.Entity(this.state.customer, this.state.formQuery).getFields()}
-                onChange={(key, newValue, index) => {
-                    console.log(`Edited ${key}:${index} to ${newValue}`)
-                    this.setState({ ...this.state, formQuery: this.state.formQuery.then(Func(q => q.Assign(key, newValue))) })
-                }}
-            />
+                    <h1>My automatic formbuilder</h1>
 
-            <JSONPretty data={JSON.stringify(FormBuilder.Entity(this.state.immutuableCustomer, this.state.formQuery).data)} />
+                    <button onClick={() => this.setState({
+                        ...this.state,
+                        customer: {
+                            ...this.state.customer,
+                            products: this.state.customer.products.concat({ productName: '', price: 0 })
+                        }
+                    })}>
+                        Add Product
+                    </button>
+
+                    <button onClick={() => this.setState({
+                        ...this.state,
+                        customer: {
+                            ...this.state.customer,
+                            lists: this.state.customer.lists.concat([])
+                        }
+                    })}>
+                        Add list
+                    </button>
+
+                    <FormMaster<Customer> id_prefix='my-form'
+                        defaultData={[this.state.customer]}
+                        query={Func(q => q.Select('FirstName', 'LastName', 'birthDay', 'gender', 'terms')
+                            .Select('favoriteColor')
+                            .Select('lists', 'todo')
+                            .Children('products', Func(q => q.Select('productName')))
+                            .AssignAny('gender', new DropDownOptions('male', [Pair('M', 'male'), Pair('V', 'female')]))
+                        )}
+                        onChange={(key, newValue, index) => {
+                            console.log(`Edited ${key}:${index} to ${newValue}`)
+                            this.setState({ ...this.state, customer: { ...this.state.customer, [key]: newValue } })
+                        }}
+                    />
+
+                </div>
+
+                <div className='col-2'>
+
+                    <JSONPretty data={JSON.stringify(this.state.customer)} />
+
+                </div>
+
+            </div>
+
+            <div className='row'>
+
+                <div className='col-4'>
+                    <h1>Immutuable form data</h1>
+                    <p>The state never changes</p>
+
+                    <FormMaster id_prefix='my-form-Immutuable'
+                        defaultData={[this.state.immutuableCustomer]}
+                        query={this.state.formQuery}
+                        onChange={(key, newValue, index) => {
+                            console.log(`Edited ${key}:${index} to ${newValue}`)
+                            this.setState({ ...this.state, formQuery: this.state.formQuery.then(Func(q => q.Assign(key, newValue))) })
+                        }}
+                    />
+
+                </div>
+
+                <div className='col-2'>
+                    <JSONPretty data={JSON.stringify(FormBuilder.Entity(this.state.immutuableCustomer, this.state.formQuery).data)} />
+                </div>
+
+            </div>
 
         </div>
     }

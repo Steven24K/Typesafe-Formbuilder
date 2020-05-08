@@ -13,11 +13,18 @@ import { createFormFields } from "./createFormfields"
 
 export interface FormBuilder {
     Entity: <T1, T2, TResult>(data: T1, q: Func<InitialFormSelector<T1>, FormSelector<T2, TResult>>) => Renderer<TResult>
+
+    Entities: <T1, T2, TResult>(data: T1[], q: Func<InitialFormSelector<T1>, FormSelector<T2, TResult>>) => Renderer<TResult>
 }
 
 export let FormBuilder: FormBuilder = ({
     Entity: function <T1, T2, TResult>(data: T1, q: Func<InitialFormSelector<T1>, FormSelector<T2, TResult>>): Renderer<TResult> {
         let result = q.f(InitialFormSelector([data]))
+        return Renderer(result.data.Second)
+    }, 
+
+    Entities: function<T1, T2, TResult>(data: T1[], q: Func<InitialFormSelector<T1>, FormSelector<T2, TResult>>): Renderer<TResult> {
+        let result = q.f(InitialFormSelector(data))
         return Renderer(result.data.Second)
     }
 })
