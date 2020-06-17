@@ -1,48 +1,6 @@
 import React from 'react'
 import { FormField } from './FormField'
-import { Query } from './LazyFormBuilder'
-import { FormBuilder } from './FormBuilder'
 
-type FormMasterProps<T> = {
-    defaultData: T[]
-    query: Query<T, any, any>
-    id_prefix: string
-    listSeperator: string
-    onChange: <a>(key: string, newValue: a, index: number) => void
-
-}
-type FormMasterState = {
-    fields: FormField[]
-}
-export default class FormMaster<T> extends React.Component<FormMasterProps<T>, FormMasterState> {
-    constructor(props: FormMasterProps<T>) {
-        super(props)
-        this.state = { fields: [] }
-    }
-
-    static defaultProps = {
-        listSeperator: ','
-    }
-
-    componentDidUpdate(prevProps: FormMasterProps<T>, prevState: FormMasterState) {
-        if (!Object.is(this.props.defaultData, prevProps.defaultData)) {
-            this.setState({ ...this.state, fields: FormBuilder.Entities(this.props.defaultData, this.props.query).getFields() })
-
-        }
-    }
-
-    componentWillMount() {
-        this.setState({ ...this.state, fields: FormBuilder.Entities(this.props.defaultData, this.props.query).getFields() })
-    }
-
-    render() {
-        return <FormPicker id_prefix={this.props.id_prefix}
-            defaultData={this.props.defaultData}
-            fields={this.state.fields}
-            onChange={this.props.onChange}
-            listSeperator={this.props.listSeperator} />
-    }
-}
 
 
 type FormPickerProps<T> = {
@@ -54,7 +12,7 @@ type FormPickerProps<T> = {
 }
 type FormPickerState<T> = {}
 
-class FormPicker<T> extends React.Component<FormPickerProps<T>, FormPickerState<T>> {
+export default class FormPicker<T> extends React.Component<FormPickerProps<T>, FormPickerState<T>> {
     constructor(props: FormPickerProps<T>) {
         super(props)
         this.state = {
@@ -100,12 +58,12 @@ class FormPicker<T> extends React.Component<FormPickerProps<T>, FormPickerState<
                                 <textarea onChange={(event) => {
                                     let values = event.target.value.split(this.props.listSeperator)
                                     this.props.onChange(field.name, values, field.index)
-                                }} cols={30} rows={5} value={this.props.defaultData[field.index][field.name as keyof T] as any} />
+                                }} cols={30} rows={5} placeholder={`Divide values by '${this.props.listSeperator}'`} value={this.props.defaultData[field.index][field.name as keyof T] as any} />
                             </div>
                         case "nestedList":
                             return <div key={this.idGenerator(this.props.id_prefix, field.name, field.index)}>
                                 <label>{field.name}</label>
-                                {field.lists.map((list, index) => <textarea cols={10} rows={2} value={list.toString()} key={index} onChange={event => {
+                                {field.lists.map((list, index) => <textarea cols={10} rows={2} placeholder={`Divide values by '${this.props.listSeperator}'`} value={list.toString()} key={index} onChange={event => {
                                     let nestedList = this.props.defaultData[field.index][field.name as keyof T] as any
                                     nestedList[index] = event.target.value.split(this.props.listSeperator)
                                     this.props.onChange(field.name, nestedList, field.index)
@@ -123,7 +81,7 @@ class FormPicker<T> extends React.Component<FormPickerProps<T>, FormPickerState<
                                 <label>{field.name}</label>
                                 <input onChange={(event) => {
                                     // date is still in the wrong format
-                                    let date = new Date(event.target.value)
+                                    let date = event.target.value//new Date(event.target.value)
                                     this.props.onChange(field.name, date, field.index)
                                 }} type='date' value={this.props.defaultData[field.index][field.name as keyof T] as any} />
                             </div>

@@ -1,13 +1,12 @@
 import React from 'react'
 import '../static/css/site.css'
-import FormPicker from '../lib/FormPicker'
 import { FormBuilder } from '../lib/FormBuilder'
 import { Func } from '../lib/Func'
 import { DropDownOptions } from '../lib/DropdownOptions'
 import { Pair } from '../lib/Pair'
 import JSONPretty from 'react-json-pretty'
 import { Query } from '../lib/LazyFormBuilder'
-import FormMaster from '../lib/FormPicker'
+import FormMaster from '../lib/FormMaster'
 
 interface Product {
     productName: string
@@ -50,8 +49,8 @@ export default class App extends React.Component<AppProps, AppState> {
                 LastName: '',
                 birthDay: new Date(),
                 gender: 'female',
-                favoriteColor: 'white',
-                terms: true, //To make it checked on default
+                favoriteColor: 'black',
+                terms: false,
                 lists: [[], [], []],
                 products: [{ productName: 'TV', price: 400 }, { productName: 'car', price: 50000 }, { productName: 'plant', price: 50 }],
                 todo: []
@@ -64,7 +63,7 @@ export default class App extends React.Component<AppProps, AppState> {
     }
 
     render() {
-        return <div className='App' style={{ backgroundColor: this.state.customer.favoriteColor }}>
+        return <div className='App' style={{ backgroundColor: this.state.customer.favoriteColor, color: FormBuilder.Entity(this.state.immutuableCustomer, this.state.formQuery).data[0].favoriteColor }}>
 
             <div className='row'>
 
@@ -86,7 +85,7 @@ export default class App extends React.Component<AppProps, AppState> {
                         ...this.state,
                         customer: {
                             ...this.state.customer,
-                            lists: this.state.customer.lists.concat([])
+                            lists: this.state.customer.lists.concat([[]])
                         }
                     })}>
                         Add list
@@ -123,7 +122,7 @@ export default class App extends React.Component<AppProps, AppState> {
                     <p>The state never changes</p>
 
                     <FormMaster id_prefix='my-form-Immutuable'
-                        defaultData={[this.state.immutuableCustomer]}
+                        defaultData={FormBuilder.Entity(this.state.immutuableCustomer, this.state.formQuery).data}
                         query={this.state.formQuery}
                         onChange={(key, newValue, index) => {
                             console.log(`Edited ${key}:${index} to ${newValue}`)
