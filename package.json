@@ -1,7 +1,7 @@
 {
-  "name": "hello-react-typescript",
-  "version": "1.0.0",
-  "description": "This is a basic react toolchain for a React app with Typescript",
+  "name": "typesafe-formbuilder-react",
+  "version": "1.0.1",
+  "description": "A full blown typesafe FormBuilder framework for React",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,19 +13,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Steven24K/Hello-React-Typescript.git"
+    "url": "git+https://github.com/Steven24K/Typesafe-Formbuilder.git"
   },
   "keywords": [
     "react",
-    "toolchain",
+    "formbuilder",
     "typescript"
   ],
   "author": "Steven Koerts",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Steven24K/Hello-React-Typescript/issues"
+    "url": "https://github.com/Steven24K/Typesafe-Formbuilder/issues"
   },
-  "homepage": "https://github.com/Steven24K/Hello-React-Typescript#readme",
+  "homepage": "https://stevenkoerts.nl/Typesafe-Formbuilder/",
   "devDependencies": {
     "clean-webpack-plugin": "^1.0.1",
     "css-loader": "^2.1.0",

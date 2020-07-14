@@ -1,4 +1,4 @@
-import { FormType } from "./FormField"
+import { FormType } from "../types/FormField"
 import { DropDownOptions } from "./DropdownOptions"
 
 export let formTypeSelector = <a>(key: string, attr: a): FormType => {

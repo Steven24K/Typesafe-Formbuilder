@@ -1,4 +1,4 @@
-import { Unit } from "./Unit"
+import { Unit } from "../types/Unit"
 
 
 export let createArray = (n: number): Array<Unit> => {

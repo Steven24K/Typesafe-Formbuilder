@@ -1,9 +1,9 @@
-import { Func } from "./Func"
+import { Func } from "./utils/Func"
 import { InitialFormSelector, FormSelector } from "./FormBuilder"
-import { Unit } from "./Unit"
-import { FilterType } from "./FilterType"
-import { ArrayType } from "./ArrayType"
-import { ChangeType } from "./ChangeType"
+import { Unit } from "./types/Unit"
+import { FilterType } from "./types/FilterType"
+import { ArrayType } from "./types/ArrayType"
+import { ChangeType } from "./types/ChangeType"
 
 export type Query<A, B, C> = Func<InitialFormSelector<A>, FormSelector<B, C>>
 

@@ -1,5 +1,6 @@
-import { FormField } from "./FormField"
+
 import { formTypeSelector } from "./formTypeSelector"
+import { FormField } from "../types/FormField"
 
 
 export let createFormFields = <T>(objs: T[]): FormField[] => {

@@ -1,4 +1,5 @@
-import { DropDownOptions } from "./DropdownOptions"
+import { DropDownOptions } from "../utils/DropdownOptions"
+
 
 export type FormType = 'text' | 'number' | 'checkbox' | 'select' | 'date' | 'nestedList' | 'primitiveList' | 'form' | 'nestedObject' | 'color' | 'none'
 

@@ -1,12 +1,13 @@
 import React from 'react'
 import '../static/css/site.css'
-import { FormBuilder } from '../lib/FormBuilder'
-import { Func } from '../lib/Func'
-import { DropDownOptions } from '../lib/DropdownOptions'
-import { Pair } from '../lib/Pair'
 import JSONPretty from 'react-json-pretty'
+import { Func } from '../lib/utils/Func'
 import { Query } from '../lib/LazyFormBuilder'
-import FormMaster from '../lib/FormMaster'
+import { FormBuilder } from '../lib/FormBuilder'
+import FormMaster from '../lib/components/FormMaster'
+import { DropDownOptions } from '../lib/utils/DropdownOptions'
+import { Pair } from '../lib/utils/Pair'
+
 
 interface Product {
     productName: string
@@ -92,7 +93,7 @@ export default class App extends React.Component<AppProps, AppState> {
                     </button>
 
                     <FormMaster<Customer> id_prefix='my-form'
-                        defaultData={[this.state.customer]}
+                        defaultData={[this.state.customer]} 
                         query={Func(q => q.Select('FirstName', 'LastName', 'birthDay', 'gender', 'terms')
                             .Select('favoriteColor')
                             .Select('lists', 'todo')

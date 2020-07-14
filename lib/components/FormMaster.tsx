@@ -1,7 +1,7 @@
 import React from 'react'
-import { FormField } from "./FormField"
-import { Query } from "./LazyFormBuilder"
-import { FormBuilder } from './FormBuilder'
+import { FormField } from "../types/FormField"
+import { Query } from "../LazyFormBuilder"
+import { FormBuilder } from '../FormBuilder'
 import FormPicker  from './FormPicker'
 
 type FormMasterProps<T> = {
