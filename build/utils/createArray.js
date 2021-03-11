@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createArray = void 0;
 exports.createArray = (n) => {
     // Max stack size exceeded
     //return n == 0 ? [] : [{}].concat(createArray(n - 1))

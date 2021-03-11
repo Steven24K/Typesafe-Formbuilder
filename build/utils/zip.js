@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.zip = void 0;
 const Pair_1 = require("./Pair");
 exports.zip = (l1, l2) => {
     if (l1.length != l2.length) {

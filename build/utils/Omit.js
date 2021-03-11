@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.omitMany = exports.omitOne = void 0;
 exports.omitOne = (entity, prop) => {
     const { [prop]: deleted, ...newState } = entity;
     return newState;

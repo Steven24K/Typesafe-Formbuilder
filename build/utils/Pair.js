@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Pair = void 0;
 const IdentityLambda_1 = require("./IdentityLambda");
 exports.Pair = (first, second) => ({
     First: first,

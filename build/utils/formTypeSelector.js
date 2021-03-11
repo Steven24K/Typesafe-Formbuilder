@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.formTypeSelector = void 0;
 const DropdownOptions_1 = require("./DropdownOptions");
 exports.formTypeSelector = (key, attr) => {
     if (key.toLowerCase().includes('color') && typeof attr != 'object') {

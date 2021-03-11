@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createFormFields = void 0;
 const formTypeSelector_1 = require("./formTypeSelector");
 exports.createFormFields = (objs) => {
     return objs.flatMap((obj, index) => Object.entries(obj).map(o => {
