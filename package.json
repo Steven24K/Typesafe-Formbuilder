@@ -4,7 +4,6 @@
   "description": "A full blown typesafe FormBuilder framework for React",
   "main": "./build/index.js",
   "scripts": {
-    "prepublish": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open --mode development",
     "watch": "webpack -w --mode development",
